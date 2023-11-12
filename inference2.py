@@ -12,11 +12,15 @@ import numpy as np
 import shutil
 import math
 
-# Load model in jit
-model = torch.jit.load(r"C:\Users\winro\Desktop\Homework\Bigdata\mushroom project\model\model_cpu.pt")
+# total arguments
+n = len(sys.argv)
+assert n == 4
+aws_access_key_id = sys.argv[1]
+aws_secret_access_key = sys.argv[2]
+aws_session_token = sys.argv[3]
 
-# Load lightning model
-#model = load_from_checkpoint()
+# Load model in jit
+model = torch.jit.load("/home/admin/EC2-inferece/efs/model/model_cpu.pt")
 
 # Prepare Transformation
 transforms =T.Compose([
@@ -32,9 +36,9 @@ if not isExist:
     os.mkdir(temp_path)
 
 # Download all images from the specific directory in the specified S3 bucket
-s3 = boto3.resource('s3',aws_access_key_id="ASIARP5DJRVXNGOTHGHO",
-                    aws_secret_access_key="6Momvoe1DsAxWWz+88Avx+eszEyQobe8GQo6WMVh",
-                    aws_session_token="FwoGZXIvYXdzEL///////////wEaDEyc4+jGdu8+u72C8yLHAZMvTl28N4O9rknCt0n7shyYn69kSc5LGdaO495MJe3as27b9u2qD4VItxx0dEa1fO7obi3P0GEfm8CVmj42WcwvpLIzjb9HN9Dt845u0H0h25ti9r8u0XUunqwS1t9/sB35N1CcFz1ZtI0wirKUnB1sdxVEmbjLZ83dKjd5myfRqVcvHPlHtXQcoLLtIA08ZLIuO6WOfLtMYWsenFXBEW2/nOmWoZ8h1Bk8nXU9TbVxBqB4pcUNSzb1BSovJKg50/5EjoC7PTQo7tv+qQYyLTfb+CblvcNZdLA28GN8ofS7gCcYHm9EN7F6+aTR6yeeUqf4GIq+igPwvqNksw==")
+s3 = boto3.resource('s3',aws_access_key_id=aws_access_key_id,
+                    aws_secret_access_key=aws_secret_access_key,
+                    aws_session_token=aws_session_token)
 def download_s3_folder(bucket_name, s3_folder, local_dir=None):
     """
     Download the contents of a folder directory

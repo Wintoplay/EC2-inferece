@@ -20,8 +20,6 @@ aws_access_key_id = sys.argv[1]
 aws_secret_access_key = sys.argv[2]
 aws_session_token = sys.argv[3]
 
-print("token: ",token)
-
 # Load model in jit
 model = torch.jit.load("/home/admin/EC2-inferece/efs/model/model_cpu.pt")
 
