@@ -3,7 +3,7 @@
 aws_access_key_id,aws_secret_access_key, and aws_session_token are in https://labs.vocareum.com/main<br>
 
 input command as:<br>
-bash setup.sh
+bash setup.sh<br>
 python3 inference2.py aws_access_key_id aws_secret_access_key aws_session_token<br>
 
 ## note
