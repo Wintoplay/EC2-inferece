@@ -13,8 +13,17 @@ from PIL import Image
 import numpy as np
 import shutil
 
+# total arguments
+n = len(sys.argv)
+assert n == 4
+aws_access_key_id = sys.argv[1]
+aws_secret_access_key = sys.argv[2]
+aws_session_token = sys.argv[3]
+
+print("token: ",token)
+
 # Load model in jit
-model = torch.jit.load("/home/admin/efs/model/model_cpu.pt")
+model = torch.jit.load("/home/admin/EC2-inferece/efs/model/model_cpu.pt")
 
 # Prepare Transformation
 transforms =T.Compose([
@@ -30,7 +39,9 @@ if not isExist:
     os.mkdir(temp_path)
 
 # Download all images from the specific directory in the specified S3 bucket
-s3 = boto3.resource('s3')
+s3 = boto3.resource('s3',aws_access_key_id=aws_access_key_id,
+                    aws_secret_access_key=aws_secret_access_key,
+                    aws_session_token=aws_session_token)
 def download_s3_folder(bucket_name, s3_folder, local_dir=None):
     """
     Download the contents of a folder directory
