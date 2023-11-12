@@ -91,7 +91,7 @@ print("edible_count: ", str(edible_count))
 # Testing of the model is only done in sagemaker for GPU utilization
 
 # Visualize Images
-images = glob.glob(temp_path)
+images = glob.glob(temp_path+"*")
 image_count = len(images)
 max_image_show = 20
 n_col = 4
